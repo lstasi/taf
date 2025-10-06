@@ -1,0 +1,2 @@
+# taf
+Terraform Always Free
