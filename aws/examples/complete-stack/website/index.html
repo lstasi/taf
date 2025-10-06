@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Free Tier Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .info-box h2 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .feature {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background: #5568d3;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 AWS Free Tier Demo</h1>
+        <p class="subtitle">Serverless application running on AWS Free Tier</p>
+        
+        <div class="info-box">
+            <h2>📊 Stack Components</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>☁️ S3</h3>
+                    <p>Static Website<br>5 GB Storage</p>
+                </div>
+                <div class="feature">
+                    <h3>⚡ Lambda</h3>
+                    <p>Serverless API<br>1M Requests</p>
+                </div>
+                <div class="feature">
+                    <h3>📈 CloudWatch</h3>
+                    <p>Monitoring<br>10 Alarms</p>
+                </div>
+                <div class="feature">
+                    <h3>🔔 SNS</h3>
+                    <p>Billing Alerts<br>1k Emails</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h2>🧪 Test the API</h2>
+            <p>Click the button below to call the Lambda function via its Function URL:</p>
+            <br>
+            <button onclick="callApi()" id="apiBtn">
+                Call Lambda API
+            </button>
+            <button onclick="callApiPost()" id="postBtn">
+                POST Request
+            </button>
+            <span id="status"></span>
+        </div>
+        
+        <div id="result" class="result"></div>
+        
+        <div class="info-box">
+            <h2>💰 Cost: $0.00</h2>
+            <p>This entire application runs within AWS Free Tier limits:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>S3: 5 GB storage, 20k GET requests</li>
+                <li>Lambda: 1M requests, 400k GB-seconds</li>
+                <li>CloudWatch: 10 custom metrics and alarms</li>
+                <li>SNS: 1,000 email notifications</li>
+            </ul>
+        </div>
+        
+        <footer>
+            <p>Built with Terraform Always Free (TAF)</p>
+            <p>📦 <a href="https://github.com/lstasi/taf" style="color: #667eea;">GitHub Repository</a></p>
+        </footer>
+    </div>
+    
+    <script>
+        // Replace this with your actual Lambda Function URL from Terraform output
+        const API_URL = 'YOUR_LAMBDA_FUNCTION_URL_HERE';
+        
+        async function callApi() {
+            const btn = document.getElementById('apiBtn');
+            const status = document.getElementById('status');
+            const result = document.getElementById('result');
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span>';
+            status.innerHTML = '';
+            result.innerHTML = 'Loading...';
+            result.classList.add('show');
+            
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                result.textContent = JSON.stringify(data, null, 2);
+                status.innerHTML = '<span class="status success">✓ Success</span>';
+            } catch (error) {
+                result.textContent = `Error: ${error.message}\n\nMake sure to update API_URL in index.html with your Lambda Function URL from Terraform output.`;
+                status.innerHTML = '<span class="status error">✗ Error</span>';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Call Lambda API';
+            }
+        }
+        
+        async function callApiPost() {
+            const btn = document.getElementById('postBtn');
+            const status = document.getElementById('status');
+            const result = document.getElementById('result');
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span>';
+            status.innerHTML = '';
+            result.innerHTML = 'Loading...';
+            result.classList.add('show');
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Hello from the browser!',
+                        timestamp: new Date().toISOString()
+                    })
+                });
+                const data = await response.json();
+                
+                result.textContent = JSON.stringify(data, null, 2);
+                status.innerHTML = '<span class="status success">✓ Success</span>';
+            } catch (error) {
+                result.textContent = `Error: ${error.message}\n\nMake sure to update API_URL in index.html with your Lambda Function URL from Terraform output.`;
+                status.innerHTML = '<span class="status error">✗ Error</span>';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'POST Request';
+            }
+        }
+    </script>
+</body>
+</html>
