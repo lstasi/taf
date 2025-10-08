@@ -1,33 +1,38 @@
-# AWS Billing Alerts Module
+# AWS Billing Alerts Documentation
 
-**⚠️ CRITICAL: Deploy this module FIRST before any other AWS resources!**
+**⚠️ CRITICAL: Always configure billing protection FIRST before deploying any AWS resources!**
 
-This Terraform module creates CloudWatch billing alarms with SNS notifications to monitor AWS costs and prevent unexpected charges. It's essential for safely using AWS free tier resources.
+**Current Phase**: Documentation
 
-## Features
+This document describes strategies and patterns for monitoring AWS costs when using always-free resources. While always-free resources should not incur charges within their limits, billing protection is essential to catch misconfigurations or accidental usage of non-free resources.
 
-- 🔔 CloudWatch billing alarms with customizable thresholds
-- 📧 Email, SMS, and HTTPS webhook notifications via SNS
-- ⚠️ Optional warning threshold for early alerts
-- 💰 AWS Budgets integration with forecasting
-- 🔐 Optional KMS encryption for SNS topics
-- 📊 Per-service cost monitoring
-- 🏷️ Tagging support for resource organization
+## Why Billing Protection Matters
 
-## Usage
+Even when using only always-free resources:
+- Misconfigurations can deploy non-free resources
+- Exceeding always-free limits incurs charges
+- Accidental deployments can be costly
+- Early detection prevents bill shock
 
-### Basic Example
+## Always-Free AWS Monitoring Resources
 
-```hcl
-module "billing_alerts" {
-  source = "./aws/billing-alerts"
-  
-  email_address     = "your-email@example.com"
-  monthly_threshold = 10.0
-  warning_threshold = 5.0
-  currency          = "USD"
-}
-```
+### CloudWatch (Always Free)
+- **10 alarms** per month (always free)
+- **10 metrics** per month (always free)
+- **5GB log ingestion** per month (always free)
+
+### SNS (Always Free)
+- **1,000 email deliveries** per month (always free)
+- **1M mobile push notifications** per month (always free)
+- **100,000 HTTP/S deliveries** per month (always free)
+
+### AWS Budgets
+- **First 2 budgets** are free (any number of alarms)
+- Additional budgets: $0.02/day each
+
+## Recommended Billing Protection Strategy
+
+### 1. CloudWatch Billing Alarms (Always Free)
 
 ### Advanced Example
 

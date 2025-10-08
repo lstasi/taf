@@ -1,181 +1,178 @@
 # Terraform Always Free - Implementation TODO
 
-## Documentation
+## ⚠️ Project Focus
+**This project focuses EXCLUSIVELY on always-free (perpetually free) resources.**
+- ✅ Always Free: Resources that remain free indefinitely
+- ❌ 12-Month Free: Explicitly excluded (e.g., EC2 t2.micro, S3, RDS)
+
+## Current Phase: Documentation
+
+### Core Documentation
 - [x] Create ARCHITECTURE.md
-- [ ] Update README.md with comprehensive project overview
+- [x] Update README.md with always-free focus
 - [x] Create TODO.md
+- [x] Update all documentation to clarify always-free vs 12-month distinction
 
-## AWS Provider
-- [ ] Create AWS directory structure
-- [ ] Create AWS README.md with provider-specific documentation
+## AWS Provider (Always Free Only)
+
+### Phase 1: Documentation
+- [x] Create AWS directory structure
+- [x] Create AWS README.md with always-free resources
 - [ ] **Billing & Monitoring** (Priority: Critical)
-  - [ ] billing-alerts module
-    - [ ] CloudWatch billing alarms
-    - [ ] SNS topic for notifications
-    - [ ] Email subscription configuration
+  - [ ] billing-alerts module documentation
+    - [ ] CloudWatch billing alarms (always free: 10 alarms)
+    - [ ] SNS notifications (always free: 1k emails/month)
     - [ ] Budget alerts via AWS Budgets
-    - [ ] Cost anomaly detection
-    - [ ] Documentation and examples
-- [ ] **Compute Resources**
-  - [ ] ec2-free-tier module
-    - [ ] t2.micro/t3.micro instance configuration
-    - [ ] Auto-scaling group with max 1 instance
-    - [ ] CloudWatch monitoring integration
-    - [ ] User data script support
-    - [ ] Documentation and examples
-  - [ ] lambda-free-tier module
-    - [ ] Lambda function with memory limits
-    - [ ] Invocation monitoring
-    - [ ] Reserved concurrency settings
-    - [ ] Documentation and examples
-- [ ] **Storage Resources**
-  - [ ] s3-free-tier module
-    - [ ] Bucket with lifecycle policies
-    - [ ] Request/storage metrics
-    - [ ] Bucket policies for cost control
-    - [ ] Documentation and examples
-  - [ ] dynamodb-free-tier module
-    - [ ] Table with on-demand or provisioned capacity (25 RCU/WCU)
+    - [ ] Cost monitoring strategies
+    - [ ] Multi-channel alert configuration
+- [ ] **Compute Resources (Always Free)**
+  - [ ] lambda module documentation
+    - [ ] Always-free limits: 1M requests/month, 400k GB-seconds
+    - [ ] Memory and duration optimization
+    - [ ] Invocation monitoring strategies
+    - [ ] Use cases within free tier
+    - [ ] Reserved concurrency considerations
+- [ ] **Storage Resources (Always Free)**
+  - [ ] dynamodb module documentation
+    - [ ] Always-free limits: 25GB storage, 25 RCU/WCU
+    - [ ] On-demand vs provisioned capacity
     - [ ] Usage metrics and alarms
-    - [ ] Documentation and examples
-- [ ] **Database Resources**
-  - [ ] rds-free-tier module
-    - [ ] db.t2.micro/db.t3.micro instance
-    - [ ] 20GB storage limit
-    - [ ] Backup configuration
-    - [ ] Documentation and examples
-- [ ] **Networking Resources**
-  - [ ] vpc-free-tier module
-    - [ ] VPC with public/private subnets
-    - [ ] Internet Gateway
-    - [ ] NAT Gateway considerations (not free)
-    - [ ] Security groups
-    - [ ] Documentation and examples
-- [ ] **Complete Examples**
-  - [ ] Full-stack web application example
-  - [ ] Serverless application example
-  - [ ] Static website hosting example
+    - [ ] Cost optimization strategies
+    - [ ] Best practices for staying within limits
+- [ ] **Monitoring Resources (Always Free)**
+  - [ ] cloudwatch module documentation
+    - [ ] Always-free limits: 10 metrics, 10 alarms, 5GB logs
+    - [ ] Metric optimization
+    - [ ] Log retention strategies
+    - [ ] Dashboard design
+- [ ] **Messaging Resources (Always Free)**
+  - [ ] sns module documentation
+    - [ ] Always-free limits: 1k emails, 1M mobile pushes
+    - [ ] Email vs SMS vs mobile push
+    - [ ] Integration patterns
+  - [ ] sqs module documentation
+    - [ ] Always-free limits: 1M requests/month
+    - [ ] Standard vs FIFO queues
+    - [ ] Queue design patterns
+- [ ] **Orchestration Resources (Always Free)**
+  - [ ] step-functions module documentation
+    - [ ] Always-free limits: 4k state transitions/month
+    - [ ] Workflow design patterns
+    - [ ] Cost optimization
 
-## Azure Provider
+### Phase 2: Implementation (Future)
+- [ ] Implement Terraform modules based on documentation
+- [ ] Create working examples
+- [ ] Add CI/CD validation
+- [ ] Security scanning integration
+
+### Explicitly Excluded from AWS
+- ❌ EC2 (t2.micro/t3.micro) - 12-month free tier only
+- ❌ S3 - 12-month free tier only
+- ❌ RDS - 12-month free tier only
+- ❌ EBS volumes - 12-month free tier only
+
+## Azure Provider (Always Free Only)
+
+### Phase 1: Documentation
 - [ ] Create Azure directory structure
-- [ ] Create Azure README.md
+- [ ] Create Azure README.md with always-free resources
 - [ ] **Billing & Monitoring** (Priority: Critical)
-  - [ ] billing-alerts module
+  - [ ] billing-alerts module documentation
     - [ ] Azure Cost Management alerts
     - [ ] Budget configuration
     - [ ] Action groups for notifications
-    - [ ] Documentation and examples
-- [ ] **Compute Resources**
-  - [ ] vm-free-tier module
-    - [ ] B1S instance configuration
-    - [ ] Monitoring and diagnostics
-    - [ ] Documentation and examples
-  - [ ] functions-free-tier module
-    - [ ] Azure Functions consumption plan
-    - [ ] Execution monitoring
-    - [ ] Documentation and examples
-  - [ ] app-service-free-tier module
-    - [ ] Free tier App Service plan
-    - [ ] Documentation and examples
-- [ ] **Storage Resources**
-  - [ ] storage-free-tier module
-    - [ ] Storage account with LRS
-    - [ ] Blob container configuration
-    - [ ] Documentation and examples
-- [ ] **Database Resources**
-  - [ ] sql-free-tier module
-    - [ ] Azure SQL Database free tier
-    - [ ] Documentation and examples
-  - [ ] cosmos-free-tier module
-    - [ ] Cosmos DB free tier (400 RU/s)
-    - [ ] Documentation and examples
-- [ ] **Complete Examples**
-  - [ ] Web application with SQL Database
-  - [ ] Serverless API example
+- [ ] **Compute Resources (Always Free)**
+  - [ ] functions module documentation
+    - [ ] Always-free: 1M executions/month
+    - [ ] Execution monitoring and optimization
+- [ ] **Database Resources (Always Free)**
+  - [ ] cosmos-db module documentation
+    - [ ] Always-free: 1,000 RU/s, 25GB storage
+    - [ ] Partitioning strategies
+    - [ ] Cost optimization
+- [ ] **Messaging Resources (Always Free)**
+  - [ ] event-grid module documentation
+    - [ ] Always-free: 100k operations/month
+  - [ ] service-bus module documentation
+    - [ ] Always-free: 750 hours/month
+  - [ ] notification-hubs module documentation
+    - [ ] Always-free: 1M pushes/month
 
-## Google Cloud Platform (GCP) Provider
+### Explicitly Excluded from Azure
+- ❌ Virtual Machines (B1S) - 12-month free tier only
+- ❌ Blob Storage (5GB) - 12-month free tier only
+- ❌ SQL Database - 12-month free tier only
+- ❌ App Service - 12-month free tier only
+
+## Google Cloud Platform (GCP) Provider (Always Free Only)
+
+### Phase 1: Documentation
 - [ ] Create GCP directory structure
-- [ ] Create GCP README.md
+- [ ] Create GCP README.md with always-free resources
 - [ ] **Billing & Monitoring** (Priority: Critical)
-  - [ ] billing-alerts module
+  - [ ] billing-alerts module documentation
     - [ ] Budget alerts configuration
     - [ ] Pub/Sub notifications
     - [ ] Cloud Monitoring integration
-    - [ ] Documentation and examples
-- [ ] **Compute Resources**
-  - [ ] compute-free-tier module
-    - [ ] e2-micro instance configuration
-    - [ ] Monitoring integration
-    - [ ] Documentation and examples
-  - [ ] cloud-functions-free-tier module
-    - [ ] Cloud Functions configuration
-    - [ ] Invocation limits
-    - [ ] Documentation and examples
-  - [ ] cloud-run-free-tier module
-    - [ ] Cloud Run service
-    - [ ] Request limits
-    - [ ] Documentation and examples
-- [ ] **Storage Resources**
-  - [ ] storage-free-tier module
-    - [ ] Cloud Storage bucket
+- [ ] **Compute Resources (Always Free)**
+  - [ ] cloud-functions module documentation
+    - [ ] Always-free: 2M invocations/month
+    - [ ] Execution optimization
+  - [ ] cloud-run module documentation
+    - [ ] Always-free: 2M requests/month, 360k GB-seconds
+    - [ ] Container optimization
+- [ ] **Database & Storage Resources (Always Free)**
+  - [ ] firestore module documentation
+    - [ ] Always-free: 1GB storage, 50k reads, 20k writes daily
+    - [ ] Data modeling strategies
+  - [ ] cloud-storage module documentation
+    - [ ] Always-free: 5GB-months (US regions)
     - [ ] Lifecycle policies
-    - [ ] Documentation and examples
-  - [ ] firestore-free-tier module
-    - [ ] Firestore database
-    - [ ] Usage monitoring
-    - [ ] Documentation and examples
-- [ ] **Complete Examples**
-  - [ ] Containerized application example
-  - [ ] Serverless API with Firestore
+  - [ ] bigquery module documentation
+    - [ ] Always-free: 1TB queries/month, 10GB storage
+    - [ ] Query optimization
+
+### Explicitly Excluded from GCP
+- ❌ Compute Engine (e2-micro) - Limited always-free in some regions, but not focus
 
 ## DigitalOcean Provider
-- [ ] Create DigitalOcean directory structure
-- [ ] Create DigitalOcean README.md
-- [ ] **Billing & Monitoring** (Priority: Critical)
-  - [ ] billing-alerts module
-    - [ ] Usage alerts via API
-    - [ ] Spending limit configuration
-    - [ ] Documentation and examples
-- [ ] **Compute Resources**
-  - [ ] droplet-minimal module
-    - [ ] Smallest droplet configuration
-    - [ ] Monitoring integration
-    - [ ] Documentation and examples
-- [ ] **Networking Resources**
-  - [ ] vpc-basic module
-    - [ ] VPC configuration
-    - [ ] Documentation and examples
-- [ ] **Complete Examples**
-  - [ ] Simple web server example
-- [ ] **Documentation**
-  - [ ] Credit usage guide
-  - [ ] Cost optimization tips
 
-## Cloudflare Provider
+**Note**: DigitalOcean does not have traditional always-free resources.
+- Offers $200 credit for new accounts (60-day limit)
+- Free monitoring and insights tools
+
+### Phase 1: Documentation
+- [ ] Create DigitalOcean README documenting credit-based model
+- [ ] Document free monitoring tools
+
+## Cloudflare Provider (Always Free)
+
+### Phase 1: Documentation
 - [ ] Create Cloudflare directory structure
-- [ ] Create Cloudflare README.md
-- [ ] **DNS & CDN** (Always Free)
-  - [ ] dns-free-tier module
+- [ ] Create Cloudflare README.md with always-free resources
+- [ ] **DNS & CDN** (Always Free - Unlimited)
+  - [ ] dns module documentation
+    - [ ] Unlimited DNS queries (always free)
     - [ ] Zone configuration
     - [ ] DNS record management
-    - [ ] Documentation and examples
-  - [ ] cdn-free-tier module
+  - [ ] cdn module documentation
+    - [ ] Unlimited bandwidth (always free)
     - [ ] CDN configuration
     - [ ] Cache rules
-    - [ ] Documentation and examples
-- [ ] **Compute Resources**
-  - [ ] workers-free-tier module
-    - [ ] Workers script deployment
-    - [ ] Request limits (100k/day)
+- [ ] **Compute Resources (Always Free)**
+  - [ ] workers module documentation
+    - [ ] Always-free: 100k requests/day
+    - [ ] Script deployment patterns
     - [ ] Usage monitoring
-    - [ ] Documentation and examples
-  - [ ] pages-free-tier module
-    - [ ] Pages project configuration
+  - [ ] pages module documentation
+    - [ ] Unlimited sites (always free)
     - [ ] Build configuration
-    - [ ] Documentation and examples
-- [ ] **Complete Examples**
-  - [ ] Static site with Workers API
-  - [ ] CDN-accelerated application
+    - [ ] Deployment strategies
+- [ ] **Security Resources (Always Free)**
+  - [ ] ssl module documentation
+    - [ ] Universal SSL (always free)
+    - [ ] Certificate management
 
 ## Cross-Provider Features
 - [ ] **Shared Modules**

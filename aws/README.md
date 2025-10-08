@@ -1,102 +1,95 @@
-# AWS Free Tier Modules
+# AWS Always Free Resources
 
-Terraform modules for deploying AWS resources within the free tier limits.
+Documentation and (planned) Terraform modules for deploying AWS **always-free** resources.
 
-## 🆓 AWS Free Tier Overview
+## 🎯 Focus: Always Free Only
 
-AWS offers a free tier with three different types:
-1. **Always Free**: Services that are always free within certain limits
-2. **12 Months Free**: Free for 12 months from account creation
-3. **Trials**: Short-term free trials for specific services
+This project focuses **exclusively on AWS resources that are perpetually free** (not 12-month free tier offerings).
 
-## 📦 Available Modules
+**Current Phase**: Documentation
 
-### Billing & Monitoring (DEPLOY FIRST!)
+AWS offers several types of free resources:
+- ✅ **Always Free**: Services that are perpetually free within certain limits (FOCUS OF THIS PROJECT)
+- ❌ **12 Months Free**: Free for 12 months from account creation (EXPLICITLY EXCLUDED)
+- ❌ **Trials**: Short-term free trials for specific services (EXPLICITLY EXCLUDED)
+
+## 📦 Always Free Resources (Documented)
+
+### Billing & Monitoring
 - **billing-alerts**: CloudWatch billing alarms and SNS notifications
-  - Status: ✅ Complete
-  - Critical: Deploy before any other resources
+  - Status: 📝 Documentation phase
+  - Critical: Always deploy billing protection
 
-### Compute
-- **ec2-free-tier**: EC2 t2.micro/t3.micro instances (750 hrs/month for 12 months)
-  - Status: 🔄 In Progress
-- **lambda-free-tier**: AWS Lambda functions (1M requests, 400k GB-sec/month)
-  - Status: 🔄 In Progress
+### Compute (Always Free)
+- **lambda**: AWS Lambda functions
+  - Limit: 1M requests/month, 400,000 GB-seconds compute
+  - Status: 📝 Documentation phase
 
-### Storage
-- **s3-free-tier**: S3 buckets (5GB storage, 20k GET, 2k PUT for 12 months)
-  - Status: 🔄 In Progress
-- **dynamodb-free-tier**: DynamoDB tables (25GB storage, 25 RCU/WCU always free)
-  - Status: 🔄 In Progress
+### Storage (Always Free)
+- **dynamodb**: DynamoDB tables
+  - Limit: 25GB storage, 25 WCU, 25 RCU
+  - Status: 📝 Documentation phase
 
-### Database
-- **rds-free-tier**: RDS instances (750 hrs db.t2.micro, 20GB storage for 12 months)
-  - Status: 🔄 In Progress
+### Monitoring (Always Free)
+- **cloudwatch**: CloudWatch metrics and alarms
+  - Limit: 10 custom metrics, 10 alarms, 5GB log ingestion
+  - Status: 📝 Documentation phase
 
-### Networking
-- **vpc-free-tier**: VPC with subnets and security groups (always free)
-  - Status: 🔄 In Progress
+### Messaging (Always Free)
+- **sns**: Simple Notification Service
+  - Limit: 1,000 email publishes/month, 1M mobile push notifications
+  - Status: 📝 Documentation phase
 
-### Examples
-- **examples/**: Complete working examples combining multiple modules
-  - Status: 🔄 In Progress
+- **sqs**: Simple Queue Service
+  - Limit: 1M requests/month
+  - Status: 📝 Documentation phase
 
-## 🚀 Quick Start
+### Orchestration (Always Free)
+- **step-functions**: Step Functions state machines
+  - Limit: 4,000 state transitions/month
+  - Status: 📝 Documentation phase
 
-### 1. Set Up Billing Alerts First
+## ❌ Explicitly Excluded (12-Month Free Tier Only)
 
-**This is critical! Always deploy billing protection before any other resources.**
+The following AWS resources are **NOT included** in this project as they are only free for the first 12 months:
 
-```hcl
-module "billing_alerts" {
-  source = "./aws/billing-alerts"
-  
-  email_address     = "your-email@example.com"
-  monthly_threshold = 10.0
-  currency          = "USD"
-}
-```
+- **EC2 instances** (t2.micro/t3.micro) - 750 hours/month for 12 months only
+- **S3 storage** - 5GB for 12 months only  
+- **RDS databases** - 750 hours db.t2.micro for 12 months only
+- **EBS volumes** - 30GB for 12 months only
+- **VPC** - Basic components are always free, but not focus of this project
 
-### 2. Deploy Free Tier Resources
+## 📖 Documentation Structure
 
-After billing alerts are configured, deploy other resources:
+Each module directory contains comprehensive documentation including:
+- Always-free limits and constraints
+- Use cases and best practices
+- Cost warnings and monitoring strategies
+- Configuration guidelines for future implementation
 
-```hcl
-module "free_ec2" {
-  source = "./aws/ec2-free-tier"
-  
-  instance_name = "my-free-server"
-  instance_type = "t2.micro"  # or t3.micro
-  ami_id        = "ami-0c55b159cbfafe1f0"  # Amazon Linux 2
-  key_name      = "my-key"
-}
+**Current Phase**: We are building comprehensive documentation before implementing Terraform code.
 
-module "free_s3" {
-  source = "./aws/s3-free-tier"
-  
-  bucket_name = "my-unique-bucket-name"
-}
-```
+## ⚠️ Always Free Limits
 
-## ⚠️ Important Considerations
+| Service | Always Free Limit | Perpetual | Notes |
+|---------|-------------------|-----------|-------|
+| **Lambda** | 1M requests/month, 400k GB-sec | ✅ Yes | Memory × duration dependent |
+| **DynamoDB** | 25GB storage, 25 RCU/WCU | ✅ Yes | On-demand or provisioned |
+| **CloudWatch** | 10 metrics, 10 alarms, 5GB logs | ✅ Yes | Basic monitoring |
+| **SNS** | 1k email publishes, 1M mobile push | ✅ Yes | Notifications |
+| **SQS** | 1M requests/month | ✅ Yes | Standard queues |
+| **Step Functions** | 4k state transitions/month | ✅ Yes | Standard workflows |
+| **CloudFormation** | 1k handler operations/month | ✅ Yes | Infrastructure as Code |
+| **Data Transfer Out** | 100GB/month to internet | ✅ Yes | Aggregate across services |
 
-### Free Tier Limits
+### Why No EC2, S3, or RDS?
 
-| Service | Free Tier Limit | Duration | Notes |
-|---------|----------------|----------|-------|
-| EC2 | 750 hrs/month t2.micro | 12 months | Linux/Windows, specific regions |
-| S3 | 5GB storage, 20k GET, 2k PUT | 12 months | Standard storage class |
-| RDS | 750 hrs/month db.t2.micro, 20GB | 12 months | Single-AZ, specific engines |
-| Lambda | 1M requests, 400k GB-sec | Always Free | Memory/duration dependent |
-| DynamoDB | 25GB storage, 25 RCU/WCU | Always Free | On-demand or provisioned |
-| CloudWatch | 10 metrics, 10 alarms | Always Free | Basic monitoring |
-| SNS | 1M publishes, 100k HTTP, 1k email | Always Free | Notifications |
-| VPC | First VPC per region | Always Free | Basic components |
+These popular services are only free for 12 months:
+- **EC2 t2.micro/t3.micro**: 750 hours/month for first 12 months only
+- **S3**: 5GB storage for first 12 months only
+- **RDS db.t2.micro**: 750 hours/month for first 12 months only
 
-### Regional Availability
-- Free tier availability varies by region
-- t2.micro: Most regions
-- t3.micro: Newer regions (may replace t2.micro)
-- Some services not available in all regions
+After 12 months, they start incurring charges. This project focuses on resources that remain free indefinitely.
 
 ### Cost Warnings
 Charges will occur if you:

@@ -1,120 +1,116 @@
 # Terraform Always Free (TAF)
 
-A comprehensive collection of Terraform modules for deploying free-tier resources across multiple cloud providers with built-in billing protection.
+A comprehensive collection of Terraform modules for deploying **always-free** (perpetually free) resources across multiple cloud providers with built-in billing protection.
 
 ## 🎯 Overview
 
-Terraform Always Free (TAF) helps developers and learners maximize cloud resources without incurring costs. This project provides:
+Terraform Always Free (TAF) helps developers and learners maximize cloud resources without incurring costs. This project focuses **exclusively on resources that are always free**, not temporary 12-month free tier offerings.
 
-- **Pre-configured Terraform modules** for free-tier resources across AWS, Azure, GCP, DigitalOcean, and Cloudflare
-- **Automated billing alerts** to prevent unexpected charges
-- **Production-ready configurations** following best practices
-- **Comprehensive documentation** and examples for each module
+**Current Phase**: Documentation and architecture design
+
+This project provides:
+
+- **Comprehensive documentation** for always-free resources across AWS, Azure, GCP, DigitalOcean, and Cloudflare
+- **Architecture guidelines** for deploying always-free infrastructure
+- **Billing protection strategies** to prevent unexpected charges
+- **Best practices** for cost-conscious cloud deployments
 
 ## ✨ Key Features
 
-- 🆓 **Zero Cost by Default**: All modules stay within free-tier limits
-- 🛡️ **Billing Protection**: Automatic alerts and monitoring for each provider
-- 📦 **Modular Design**: Use only what you need, compose as required
+- 🆓 **Always Free Only**: Focus exclusively on perpetually free resources (not 12-month trials)
+- 🛡️ **Billing Protection**: Automatic alerts and monitoring strategies for each provider
+- 📦 **Modular Design**: Documentation organized by resource type for flexibility
 - 🌍 **Multi-Cloud Support**: Consistent structure across all providers
-- 📚 **Well Documented**: Each module includes usage examples and documentation
+- 📚 **Documentation First**: Comprehensive guides before implementation
 
 ## 🏗️ Project Structure
 
 ```
 taf/
-├── aws/              # AWS free tier modules
-├── azure/            # Azure free tier modules
-├── gcp/              # Google Cloud Platform modules
-├── digitalocean/     # DigitalOcean modules
-├── cloudflare/       # Cloudflare modules
+├── aws/              # AWS always-free resources documentation
+├── azure/            # Azure always-free resources documentation
+├── gcp/              # Google Cloud Platform always-free documentation
+├── digitalocean/     # DigitalOcean documentation
+├── cloudflare/       # Cloudflare always-free documentation
 ├── ARCHITECTURE.md   # Detailed architecture documentation
 └── TODO.md          # Implementation roadmap
 ```
 
-## 🚀 Quick Start
+## 🚀 Getting Started
 
-### Prerequisites
+### Current Phase: Documentation
 
-- [Terraform](https://www.terraform.io/downloads.html) >= 1.0
-- Cloud provider account (AWS, Azure, GCP, etc.)
-- Appropriate cloud provider credentials configured
+We are currently in the **documentation phase**, creating comprehensive guides for always-free resources across cloud providers.
 
-### Basic Usage
+**What's Available Now:**
+- Architecture documentation (ARCHITECTURE.md)
+- Implementation roadmap (TODO.md)
+- Provider-specific documentation in each directory
 
-1. Clone this repository:
-```bash
-git clone https://github.com/lstasi/taf.git
-cd taf
-```
+**Coming Soon:**
+- Terraform modules implementing the documented patterns
+- Example configurations
+- CI/CD validation workflows
 
-2. Navigate to your desired provider and module:
-```bash
-cd aws/ec2-free-tier
-```
+### How to Use This Repository
 
-3. Review the module documentation and customize variables:
-```bash
-cat README.md
-```
+1. **Review the Architecture**: Start with [ARCHITECTURE.md](ARCHITECTURE.md) to understand the project structure and always-free resource focus
 
-4. Deploy the module (example):
-```hcl
-module "free_ec2" {
-  source = "./aws/ec2-free-tier"
-  
-  instance_name = "my-free-instance"
-  region        = "us-east-1"
-}
-```
+2. **Check the Roadmap**: See [TODO.md](TODO.md) for implementation status and priorities
 
-5. **Always deploy billing alerts first**:
-```hcl
-module "billing_alerts" {
-  source = "./aws/billing-alerts"
-  
-  email_address     = "your-email@example.com"
-  monthly_threshold = 10  # Alert if costs exceed $10/month
-}
-```
+3. **Explore Provider Documentation**: Navigate to provider directories (e.g., `aws/`, `gcp/`) to learn about always-free resources
 
-## 📋 Provider Coverage
+4. **Understand Always-Free vs 12-Month Free**:
+   - ✅ **Always Free**: Perpetually free resources (focus of this project)
+   - ❌ **12-Month Free**: Temporary free tier (explicitly excluded)
 
-### AWS
-- ✅ CloudWatch Billing Alerts
-- 🔄 EC2 (t2.micro/t3.micro)
-- 🔄 S3 (5GB storage)
-- 🔄 Lambda (1M requests/month)
-- 🔄 RDS (db.t2.micro)
-- 🔄 DynamoDB (25GB)
-- 🔄 VPC & Networking
+## 📋 Always-Free Resources Coverage
 
-### Azure
-- 🔄 Cost Management Alerts
-- 🔄 VM (B1S instance)
-- 🔄 Storage (5GB blob)
-- 🔄 Functions
-- 🔄 SQL Database
+### AWS (Always Free)
+- 📝 CloudWatch Billing Alerts
+- 📝 Lambda (1M requests/month, 400k GB-seconds)
+- 📝 DynamoDB (25GB storage, 25 WCU/RCU)
+- 📝 CloudWatch (10 metrics, 10 alarms)
+- 📝 SNS (1k emails/month)
+- 📝 SQS (1M requests/month)
+- 📝 Step Functions (4k transitions/month)
 
-### Google Cloud Platform
-- 🔄 Budget Alerts
+**Excluded**: EC2, S3, RDS (12-month free tier only)
+
+### Azure (Always Free)
+- 📝 Functions (1M executions/month)
+- 📝 Cosmos DB (1k RU/s, 25GB)
+- 📝 Event Grid (100k operations/month)
+- 📝 Service Bus (750 hours/month)
+
+**Excluded**: VMs, Storage, SQL Database (12-month free tier only)
+
+### Google Cloud Platform (Always Free)
+- 📝 Cloud Functions (2M invocations/month)
+- 📝 Cloud Run (2M requests/month)
+- 📝 Firestore (1GB storage, 50k reads, 20k writes daily)
+- 📝 Cloud Storage (5GB-months)
+- 📝 BigQuery (1TB queries/month, 10GB storage)
+
+**Excluded**: Compute Engine e2-micro (12-month free tier only)
 - 🔄 Compute Engine (e2-micro)
 - 🔄 Cloud Storage (5GB)
 - 🔄 Cloud Functions
 - 🔄 Firestore
 
 ### DigitalOcean
-- 🔄 Usage Alerts
-- 🔄 Minimal Droplets
-- 🔄 VPC
+**Note**: DigitalOcean doesn't have traditional always-free resources. They offer:
+- $200 credit for new accounts (60 days)
+- Free monitoring and insights tools
 
-### Cloudflare
-- 🔄 DNS (Unlimited)
-- 🔄 CDN (Unlimited bandwidth)
-- 🔄 Workers (100k requests/day)
-- 🔄 Pages (Unlimited sites)
+### Cloudflare (Always Free)
+- 📝 DNS (Unlimited queries)
+- 📝 CDN (Unlimited bandwidth)
+- 📝 Workers (100k requests/day)
+- 📝 Pages (Unlimited sites)
+- 📝 SSL Certificates (Universal SSL)
 
-Legend: ✅ Complete | 🔄 In Progress | ⏸️ Planned
+Legend: 📝 Documentation Phase | 🔄 Implementation In Progress | ✅ Complete
 
 ## 📖 Documentation
 
@@ -123,31 +119,43 @@ Legend: ✅ Complete | 🔄 In Progress | ⏸️ Planned
 - Provider-specific READMEs in each provider directory
 - Module-specific documentation in each module directory
 
-## 🛠️ Available Modules
+## 📚 Documentation Structure
 
-Each module includes:
-- Terraform configuration files
-- Variable definitions with sensible defaults
-- Output values for module composition
-- Comprehensive README with examples
-- Free-tier limit enforcement
+Each provider directory contains:
+- **README.md**: Overview of always-free resources for that provider
+- **Module directories**: Specific resource documentation (e.g., `lambda/`, `dynamodb/`)
+- **examples/**: Planned usage examples and patterns
 
-## ⚠️ Important Notes
+Each module documentation includes:
+- Always-free resource limits and constraints
+- Use cases and best practices
+- Cost warnings and monitoring strategies
+- Configuration guidelines (for future implementation)
 
-### Billing Protection
-While these modules are designed to stay within free-tier limits, you should:
-1. **Always deploy billing alerts first** before any other resources
-2. Monitor your cloud provider console regularly
-3. Understand your provider's free-tier limitations
-4. Set up multi-channel alerts (email, SMS, Slack)
-5. Review costs weekly, especially when learning
+## ⚠️ Important: Always Free vs 12-Month Free Tier
 
-### Free Tier Limits
-Free-tier offerings vary by:
-- **Region**: Some resources are only free in specific regions
-- **Time**: Many free tiers are limited to 12 months for new accounts
-- **Always Free vs Trial**: Some resources are always free, others are trial-only
-- **Usage Patterns**: Exceeding request/storage limits will incur charges
+This project **exclusively focuses on always-free resources**. We explicitly exclude:
+
+### ❌ Excluded (12-Month Free Tier Only)
+- AWS EC2 t2.micro/t3.micro instances
+- AWS S3 storage (5GB)
+- AWS RDS databases
+- Azure Virtual Machines (B1S)
+- Azure Blob Storage
+- GCP Compute Engine e2-micro
+
+### ✅ Included (Always Free)
+- AWS Lambda, DynamoDB, CloudWatch, SNS
+- Azure Functions, Cosmos DB, Event Grid
+- GCP Cloud Functions, Cloud Run, Firestore
+- Cloudflare DNS, CDN, Workers, Pages
+
+### Why This Matters
+**12-month free tier** offerings expire after one year, potentially leading to unexpected charges. **Always-free** resources remain free indefinitely within specified usage limits, making them ideal for:
+- Long-term learning projects
+- Low-traffic production workloads
+- Permanent infrastructure components
+- Cost-conscious development
 
 ### Security Considerations
 - Never commit credentials or sensitive data
@@ -188,8 +196,13 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 See [TODO.md](TODO.md) for the complete implementation roadmap.
 
-**Current Focus**: AWS provider modules and billing protection
+**Current Phase**: Documentation and architecture design
+**Next Phase**: Terraform module implementation for AWS always-free resources
 
 ---
 
-**⚡ Getting Started**: Begin with [ARCHITECTURE.md](ARCHITECTURE.md) to understand the project structure, then check [TODO.md](TODO.md) for implementation status.
+**⚡ Getting Started**: 
+1. Read [ARCHITECTURE.md](ARCHITECTURE.md) to understand the always-free focus and project structure
+2. Check [TODO.md](TODO.md) for implementation status and priorities
+3. Explore provider directories (e.g., `aws/`) for always-free resource documentation
+4. Understand the critical distinction between always-free and 12-month free tier resources
