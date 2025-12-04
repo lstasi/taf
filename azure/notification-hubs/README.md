@@ -54,7 +54,7 @@ You will incur charges if:
 - ✅ **Personal projects**: Side projects, learning
 - ✅ **B2B apps**: Limited user base
 - ✅ **Internal apps**: Company tools
-- ✅ **IoT alerts**: Device notifications
+- ✅ **IoT alerts**: Small-scale device notifications (max 500 devices)
 
 ### Consider Paid Tiers For
 - ⚠️ **Large user bases**: >500 active devices

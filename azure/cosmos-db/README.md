@@ -289,7 +289,7 @@ resource "azurerm_monitor_metric_alert" "cosmos_storage" {
 3. **Caching**:
    - Cache frequently read data
    - Use application-level caching
-   - Consider Redis for hot data (12-month free)
+   - Consider in-memory caching libraries
 
 4. **Batch operations**:
    - Use bulk operations
