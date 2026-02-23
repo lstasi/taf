@@ -39,7 +39,7 @@ taf/
 │   ├── README.md
 │   ├── billing-alerts/
 │   └── examples/
-├── oracle-cloud/                # Oracle Cloud Infrastructure modules
+├── oraclecloud/                 # Oracle Cloud Infrastructure modules
 │   ├── README.md
 │   ├── billing-alerts/         # OCI Budgets and Notifications
 │   ├── compute/                # Compute (always free: E2.1.Micro × 2, A1.Flex 4 OCPU/24 GB)

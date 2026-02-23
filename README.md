@@ -30,7 +30,7 @@ taf/
 ├── aws/              # AWS always-free resources documentation
 ├── azure/            # Azure always-free resources documentation
 ├── gcp/              # Google Cloud Platform always-free documentation
-├── oracle-cloud/     # Oracle Cloud Infrastructure always-free documentation
+├── oraclecloud/      # Oracle Cloud Infrastructure always-free documentation
 ├── digitalocean/     # DigitalOcean documentation
 ├── cloudflare/       # Cloudflare always-free documentation
 ├── ARCHITECTURE.md   # Detailed architecture documentation

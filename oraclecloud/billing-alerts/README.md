@@ -33,7 +33,7 @@ Even when using only always-free resources:
 
 ```hcl
 module "billing_alerts" {
-  source = "./oracle-cloud/billing-alerts"
+  source = "./oraclecloud/billing-alerts"
 
   # Compartment configuration
   tenancy_id     = var.tenancy_ocid
@@ -62,7 +62,7 @@ module "billing_alerts" {
 
 ```hcl
 module "billing_alerts" {
-  source = "./oracle-cloud/billing-alerts"
+  source = "./oraclecloud/billing-alerts"
 
   tenancy_id        = var.tenancy_ocid
   monthly_threshold = 10.0
@@ -297,7 +297,7 @@ This module is **completely free** within OCI always-free tier:
 
 ```hcl
 module "billing_alerts" {
-  source = "./oracle-cloud/billing-alerts"
+  source = "./oraclecloud/billing-alerts"
 
   tenancy_id        = var.tenancy_ocid
   compartment_id    = var.compartment_id
