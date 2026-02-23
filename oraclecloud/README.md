@@ -178,7 +178,7 @@ provider "oci" {
 }
 
 module "my_module" {
-  source = "./oracle-cloud/module-name"
+  source = "./oraclecloud/module-name"
   # ... module variables
 }
 ```
@@ -187,7 +187,7 @@ module "my_module" {
 ```hcl
 # First: Billing protection
 module "billing" {
-  source = "./oracle-cloud/billing-alerts"
+  source = "./oraclecloud/billing-alerts"
 
   compartment_id    = var.compartment_id
   email_address     = "admin@example.com"
@@ -196,7 +196,7 @@ module "billing" {
 
 # Then: Resources
 module "compute" {
-  source = "./oracle-cloud/compute"
+  source = "./oraclecloud/compute"
 
   compartment_id      = var.compartment_id
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
@@ -206,7 +206,7 @@ module "compute" {
 }
 
 module "autonomous_db" {
-  source = "./oracle-cloud/autonomous-db"
+  source = "./oraclecloud/autonomous-db"
 
   compartment_id = var.compartment_id
   db_name        = "MYFREEDB"
@@ -223,7 +223,7 @@ Each module includes:
 
 Run tests:
 ```bash
-cd oracle-cloud/module-name
+cd oraclecloud/module-name
 terraform init
 terraform validate
 terraform plan
