@@ -30,6 +30,7 @@ taf/
 ├── aws/              # AWS always-free resources documentation
 ├── azure/            # Azure always-free resources documentation
 ├── gcp/              # Google Cloud Platform always-free documentation
+├── oracle-cloud/     # Oracle Cloud Infrastructure always-free documentation
 ├── digitalocean/     # DigitalOcean documentation
 ├── cloudflare/       # Cloudflare always-free documentation
 ├── ARCHITECTURE.md   # Detailed architecture documentation
@@ -84,6 +85,16 @@ We are currently in the **documentation phase**, creating comprehensive guides f
 - 📝 Service Bus (750 hours/month)
 
 **Excluded**: VMs, Storage, SQL Database (12-month free tier only)
+
+### Oracle Cloud Infrastructure (Always Free)
+- 📝 Compute AMD (2× VM.Standard.E2.1.Micro)
+- 📝 Compute ARM (VM.Standard.A1.Flex: 4 OCPUs, 24 GB RAM)
+- 📝 Autonomous Database (2 DBs, 1 OCPU, 20 GB each)
+- 📝 Object Storage (20 GB standard, 10 GB archive)
+- 📝 Functions (2M invocations/month)
+- 📝 Networking (VCN, Load Balancer 10 Mbps, 10 TB/month egress)
+
+**Always Free**: OCI has one of the most generous always-free tiers (no 12-month limits)
 
 ### Google Cloud Platform (Always Free)
 - 📝 Cloud Functions (2M invocations/month)
@@ -148,6 +159,7 @@ This project **exclusively focuses on always-free resources**. We explicitly exc
 - AWS Lambda, DynamoDB, CloudWatch, SNS
 - Azure Functions, Cosmos DB, Event Grid
 - GCP Cloud Functions, Cloud Run, Firestore
+- Oracle Cloud Compute (AMD + ARM), Autonomous DB, Object Storage, Functions
 - Cloudflare DNS, CDN, Workers, Pages
 
 ### Why This Matters

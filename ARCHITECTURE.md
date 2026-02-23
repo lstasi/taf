@@ -39,6 +39,15 @@ taf/
 │   ├── README.md
 │   ├── billing-alerts/
 │   └── examples/
+├── oracle-cloud/                # Oracle Cloud Infrastructure modules
+│   ├── README.md
+│   ├── billing-alerts/         # OCI Budgets and Notifications
+│   ├── compute/                # Compute (always free: E2.1.Micro × 2, A1.Flex 4 OCPU/24 GB)
+│   ├── autonomous-db/          # Autonomous Database (always free: 2 DBs, 1 OCPU, 20 GB each)
+│   ├── object-storage/         # Object Storage (always free: 20 GB standard, 10 GB archive)
+│   ├── functions/              # Oracle Functions (always free: 2M invocations/month)
+│   ├── networking/             # VCN, Load Balancer (always free: 10 Mbps, 10 TB egress)
+│   └── examples/
 ├── gcp/                         # Google Cloud Platform modules
 │   ├── README.md
 │   ├── billing-alerts/
@@ -119,6 +128,31 @@ Future implementation will follow standard Terraform module structure with main.
 - Azure Cost Management alerts
 - Budget thresholds with action groups
 - Cost analysis dashboards
+
+### Oracle Cloud Infrastructure (OCI) Always Free Resources
+
+**Focus on perpetually free resources (no 30-day trial limit):**
+- **Compute (AMD)**: 2× VM.Standard.E2.1.Micro (1/8 OCPU, 1 GB RAM each)
+- **Compute (ARM)**: VM.Standard.A1.Flex up to 4 OCPUs and 24 GB RAM total
+- **Autonomous Database**: 2 databases (ATP/ADW/AJD), 1 OCPU, 20 GB storage each
+- **Object Storage**: 20 GB standard, 10 GB archive
+- **Block Volumes**: 200 GB total, 5 backups
+- **Functions**: 2M invocations/month, 400,000 GB-seconds
+- **API Gateway**: 1M API calls/month
+- **Networking**: VCN, 1 load balancer (10 Mbps), 10 TB/month outbound transfer
+- **Monitoring**: 500M ingestion datapoints/month
+- **Notifications**: 1M+ deliveries/month
+
+**Explicitly Excluded (not in always-free tier):**
+- ❌ Additional Autonomous Databases beyond 2 per tenancy
+- ❌ Paid compute shapes (VM.Standard3.Flex, BM.*, GPU shapes)
+- ❌ Oracle Analytics Cloud
+- ❌ OCI Data Science
+
+**Billing Protection:**
+- OCI Budgets with alert rules
+- OCI Notifications topics with email/HTTPS subscriptions
+- OCI Monitoring alarms for resource usage metrics
 
 ### Google Cloud Platform Always Free Resources
 
