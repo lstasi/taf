@@ -105,7 +105,63 @@
 - ❌ SQL Database - 12-month free tier only
 - ❌ App Service - 12-month free tier only
 
-## Google Cloud Platform (GCP) Provider (Always Free Only)
+## Oracle Cloud Infrastructure (OCI) Provider (Always Free Only)
+
+### Phase 1: Documentation ✅ COMPLETE
+- [x] Create Oracle Cloud directory structure
+- [x] Create Oracle Cloud README.md with always-free resources
+- [x] **Billing & Monitoring** (Priority: Critical)
+  - [x] billing-alerts module documentation
+    - [x] OCI Budgets configuration
+    - [x] OCI Notifications topics and subscriptions
+    - [x] OCI Monitoring alarms
+    - [x] Email and HTTPS notification channels
+- [x] **Compute Resources (Always Free)**
+  - [x] compute module documentation
+    - [x] Always-free: 2× VM.Standard.E2.1.Micro (1/8 OCPU, 1 GB RAM)
+    - [x] Always-free: VM.Standard.A1.Flex (4 OCPUs, 24 GB RAM total)
+    - [x] Shape selection and sizing guidance
+    - [x] Block Volume limits (200 GB total)
+    - [x] Security and SSH key configuration
+- [x] **Database Resources (Always Free)**
+  - [x] autonomous-db module documentation
+    - [x] Always-free: 2 Autonomous Databases (ATP/ADW/AJD)
+    - [x] Always-free: 1 OCPU, 20 GB storage per database
+    - [x] Oracle APEX and ORDS integration
+    - [x] Connection wallet and security
+- [x] **Storage Resources (Always Free)**
+  - [x] object-storage module documentation
+    - [x] Always-free: 20 GB standard storage
+    - [x] Always-free: 10 GB archive storage
+    - [x] Lifecycle policies and cost management
+    - [x] Static website hosting
+- [x] **Serverless Resources (Always Free)**
+  - [x] functions module documentation
+    - [x] Always-free: 2M invocations/month
+    - [x] Always-free: 400K GB-seconds/month
+    - [x] API Gateway integration (1M calls/month free)
+    - [x] Event-driven patterns with OCI Events
+- [x] **Networking Resources (Always Free)**
+  - [x] networking module documentation
+    - [x] Always-free: VCN with subnets, gateways
+    - [x] Always-free: 1 flexible load balancer (10 Mbps)
+    - [x] Always-free: 10 TB/month outbound data transfer
+    - [x] Security Lists and Network Security Groups
+
+### Phase 2: Implementation (Future)
+- [ ] Implement Terraform modules based on documentation
+- [ ] Create working examples
+- [ ] Add CI/CD validation
+- [ ] Security scanning integration
+
+### Explicitly Excluded from Oracle Cloud
+- ❌ Additional Autonomous Databases (beyond 2 always-free)
+- ❌ Paid compute shapes (VM.Standard3.Flex, BM.*, GPU shapes)
+- ❌ Oracle Analytics Cloud - not in always-free tier
+- ❌ OCI Data Science - not in always-free tier
+- ❌ Additional Block Volume storage beyond 200 GB
+
+
 
 ### Phase 1: Documentation
 - [ ] Create GCP directory structure
