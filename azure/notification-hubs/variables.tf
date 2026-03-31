@@ -28,7 +28,7 @@ variable "apns_credential" {
     token            = string
   })
   default   = null
-  sensitive = false
+  sensitive = true
 }
 
 variable "gcm_credential" {
@@ -37,7 +37,7 @@ variable "gcm_credential" {
     api_key = string
   })
   default   = null
-  sensitive = false
+  sensitive = true
 }
 
 variable "create_listen_rule" {
