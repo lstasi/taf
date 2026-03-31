@@ -27,7 +27,7 @@ resource "azurerm_cosmosdb_account" "main" {
   kind                = "GlobalDocumentDB"
   free_tier_enabled   = true
 
-  enable_automatic_failover = false
+  automatic_failover_enabled = false
 
   consistency_policy {
     consistency_level = var.consistency_level

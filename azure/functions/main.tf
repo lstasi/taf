@@ -107,7 +107,6 @@ resource "azurerm_windows_function_app" "main" {
   site_config {
     application_stack {
       node_version            = lookup(local.application_stack, "node_version", null)
-      python_version          = lookup(local.application_stack, "python_version", null)
       dotnet_version          = lookup(local.application_stack, "dotnet_version", null)
       java_version            = lookup(local.application_stack, "java_version", null)
       powershell_core_version = lookup(local.application_stack, "powershell_core_version", null)

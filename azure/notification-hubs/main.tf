@@ -41,20 +41,20 @@ resource "azurerm_notification_hub" "main" {
   location            = azurerm_resource_group.main.location
 
   dynamic "apns_credential" {
-    for_each = var.apns_credential != null ? [var.apns_credential] : []
+    for_each = var.apns_credential != null ? toset(["enabled"]) : toset([])
     content {
-      application_mode = apns_credential.value.application_mode
-      bundle_id        = apns_credential.value.bundle_id
-      key_id           = apns_credential.value.key_id
-      team_id          = apns_credential.value.team_id
-      token            = apns_credential.value.token
+      application_mode = var.apns_credential.application_mode
+      bundle_id        = var.apns_credential.bundle_id
+      key_id           = var.apns_credential.key_id
+      team_id          = var.apns_credential.team_id
+      token            = var.apns_credential.token
     }
   }
 
   dynamic "gcm_credential" {
-    for_each = var.gcm_credential != null ? [var.gcm_credential] : []
+    for_each = var.gcm_credential != null ? toset(["enabled"]) : toset([])
     content {
-      api_key = gcm_credential.value.api_key
+      api_key = var.gcm_credential.api_key
     }
   }
 

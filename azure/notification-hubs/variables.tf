@@ -27,8 +27,7 @@ variable "apns_credential" {
     team_id          = string
     token            = string
   })
-  default   = null
-  sensitive = true
+  default = null
 }
 
 variable "gcm_credential" {
@@ -36,8 +35,7 @@ variable "gcm_credential" {
   type = object({
     api_key = string
   })
-  default   = null
-  sensitive = true
+  default = null
 }
 
 variable "create_listen_rule" {

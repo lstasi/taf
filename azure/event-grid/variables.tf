@@ -39,10 +39,10 @@ variable "input_schema" {
 variable "subscriptions" {
   description = "List of event subscriptions to create for the custom topic."
   type = list(object({
-    name                 = string
-    endpoint_type        = string
-    endpoint_url         = string
-    included_event_types = optional(list(string), [])
+    name                  = string
+    endpoint_type         = string
+    endpoint_url          = string
+    included_event_types  = optional(list(string), [])
     subject_filter_prefix = optional(string, "")
     subject_filter_suffix = optional(string, "")
     max_delivery_attempts = optional(number, 3)
