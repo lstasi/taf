@@ -1,85 +1,27 @@
-# Cloudflare Always Free Resources
+# Cloudflare Status
 
-Documentation and (planned) Terraform modules for deploying Cloudflare **always-free** resources.
+Cloudflare is documented in this repository, but no Terraform module code has been implemented for it yet.
 
-## 🎯 Focus: Always Free Only
+## Planned Scope
 
-This project focuses **exclusively on Cloudflare resources that are perpetually free** (not paid add-ons or usage beyond free limits).
+- DNS
+- CDN configuration
+- Workers
+- Pages
+- Universal SSL guidance
 
-**Current Phase**: Documentation
+## Current Status
 
-## 📦 Always Free Resources (Documented)
+- Provider overview only.
+- No `main.tf`, `variables.tf`, `outputs.tf`, or module directories exist under `cloudflare/` yet.
 
-### DNS & CDN
-- **dns**: Authoritative DNS management
-  - Limit: Unlimited DNS queries (always free)
-  - Status: 📝 Documentation phase
+## What Is Missing
 
-- **cdn**: Global CDN and caching
-  - Limit: Unlimited bandwidth on free plan (fair use and product limits apply)
-  - Status: 📝 Documentation phase
+- Provider-specific module directories.
+- Usage examples.
+- Validation and test coverage.
 
-### Compute (Edge)
-- **workers**: Cloudflare Workers
-  - Limit: 100,000 requests/day (always free)
-  - Status: 📝 Documentation phase
+## Notes
 
-- **pages**: Cloudflare Pages
-  - Limit: Unlimited static sites/projects (build/runtime limits apply)
-  - Status: 📝 Documentation phase
-
-### Security
-- **ssl**: Universal SSL certificates
-  - Limit: Included on free plan for proxied domains
-  - Status: 📝 Documentation phase
-
-## ⚠️ Always Free Limits
-
-| Service | Always Free Limit | Perpetual | Notes |
-|---------|-------------------|-----------|-------|
-| **DNS** | Unlimited queries | ✅ Yes | Zone/domain registration is separate |
-| **CDN** | Unlimited bandwidth | ✅ Yes | Subject to free plan capabilities |
-| **Workers** | 100k requests/day | ✅ Yes | Daily reset; CPU/runtime limits apply |
-| **Pages** | Unlimited projects | ✅ Yes | Build minutes and functions limits apply |
-| **Universal SSL** | Included | ✅ Yes | For proxied records on supported domains |
-
-## ❌ Not Included in Always-Free Scope
-
-- Paid Cloudflare plan features (Pro/Business/Enterprise-only)
-- Usage above free limits for Workers/Pages add-on features
-- Domain registration and renewal costs (handled by registrar)
-
-## 🛡️ Billing Protection Strategy
-
-1. Start on Cloudflare Free plan only
-2. Monitor Workers and Pages usage weekly
-3. Avoid enabling paid add-ons unless explicitly needed
-4. Keep DNS-only or proxied settings intentional per record
-5. Review Cloudflare dashboard usage before expanding workloads
-
-## 📋 Prerequisites
-
-- Terraform >= 1.0.0
-- Cloudflare account on Free plan
-- API token with least required permissions
-- Cloudflare Zone ID for target domain(s)
-
-## 🔒 Security Best Practices
-
-1. Never commit Cloudflare API tokens
-2. Use scoped API tokens (least privilege), not global keys
-3. Store secrets in secure secret managers or environment variables
-4. Enable and keep SSL/TLS mode configured correctly
-5. Use Cloudflare Access or WAF features where available in free tier
-
-## 📚 Additional Resources
-
-- [Cloudflare Pricing](https://www.cloudflare.com/plans/)
-- [Cloudflare Free Plan Details](https://www.cloudflare.com/plans/free/)
-- [Cloudflare Workers Pricing](https://developers.cloudflare.com/workers/platform/pricing/)
-- [Cloudflare Pages Pricing](https://developers.cloudflare.com/pages/platform/pricing/)
-- [Terraform Cloudflare Provider](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs)
-
-## 🗺️ Roadmap
-
-See [TODO.md](../TODO.md) for detailed implementation status.
+- Cloudflare remains in scope because its free plan aligns well with the project goals.
+- Module work should come after examples, CI, and guardrail improvements for the already implemented providers.
