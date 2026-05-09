@@ -1,220 +1,101 @@
 # Terraform Always Free (TAF)
 
-A comprehensive collection of Terraform modules for deploying **always-free** (perpetually free) resources across multiple cloud providers with built-in billing protection.
+Terraform Always Free (TAF) is a collection of Terraform modules for cloud resources that have a perpetual free allowance. The repository is no longer in a documentation-only phase: AWS, Azure, and Oracle Cloud Infrastructure modules are implemented and documented, while Cloudflare is documented but has no module code yet.
 
-## 🎯 Overview
+## Current Status
 
-Terraform Always Free (TAF) helps developers and learners maximize cloud resources without incurring costs. This project focuses **exclusively on resources that are always free**, not temporary 12-month free tier offerings.
+| Provider | Status | Implemented Modules | Notes |
+| --- | --- | --- | --- |
+| AWS | Implemented | 7 | Billing alerts, Lambda, DynamoDB, CloudWatch, SNS, SQS, Step Functions |
+| Azure | Implemented | 6 | Billing alerts, Functions, Cosmos DB, Event Grid, Service Bus, Notification Hubs |
+| Oracle Cloud Infrastructure | Implemented | 6 | Billing alerts, Networking, Compute, Autonomous DB, Object Storage, Functions |
+| Cloudflare | Documentation only | 0 | Provider overview only |
+| GCP | Not started | 0 | No provider directory in the repo yet |
+| DigitalOcean | Not started | 0 | No provider directory in the repo yet |
 
-**Current Phase**: Documentation and architecture design
+Implemented Terraform modules: 19
 
-This project provides:
+## What Exists Today
 
-- **Comprehensive documentation** for always-free resources across AWS, Azure, GCP, DigitalOcean, and Cloudflare
-- **Architecture guidelines** for deploying always-free infrastructure
-- **Billing protection strategies** to prevent unexpected charges
-- **Best practices** for cost-conscious cloud deployments
+- Reusable Terraform modules under [aws/README.md](aws/README.md), [azure/README.md](azure/README.md), and [oraclecloud/README.md](oraclecloud/README.md).
+- Module-level READMEs for every implemented module.
+- One working example for AWS billing alerts in [aws/billing-alerts/examples/basic/README.md](aws/billing-alerts/examples/basic/README.md).
+- Provider and module version constraints in each module's `versions.tf`.
 
-## ✨ Key Features
+## What Is Still Missing
 
-- 🆓 **Always Free Only**: Focus exclusively on perpetually free resources (not 12-month trials)
-- 🛡️ **Billing Protection**: Automatic alerts and monitoring strategies for each provider
-- 📦 **Modular Design**: Documentation organized by resource type for flexibility
-- 🌍 **Multi-Cloud Support**: Consistent structure across all providers
-- 📚 **Documentation First**: Comprehensive guides before implementation
+- Working examples for most implemented modules.
+- CI validation and formatting checks.
+- Automated security scanning and cost guardrails.
+- Stronger validation for provider-wide aggregate free-tier quotas.
+- Any Terraform module code for Cloudflare, GCP, and DigitalOcean.
 
-## 🏗️ Project Structure
+## Repository Layout
 
-```
+```text
 taf/
-├── aws/              # AWS always-free resources documentation
-├── azure/            # Azure always-free resources documentation
-├── gcp/              # Google Cloud Platform always-free documentation
-├── oraclecloud/      # Oracle Cloud Infrastructure always-free documentation
-├── digitalocean/     # DigitalOcean documentation
-├── cloudflare/       # Cloudflare always-free documentation
-├── ARCHITECTURE.md   # Detailed architecture documentation
-└── TODO.md          # Implementation roadmap
+├── README.md
+├── ARCHITECTURE.md
+├── TODO.md
+├── aws/
+│   ├── billing-alerts/
+│   ├── cloudwatch/
+│   ├── dynamodb/
+│   ├── lambda/
+│   ├── sns/
+│   ├── sqs/
+│   └── step-functions/
+├── azure/
+│   ├── billing-alerts/
+│   ├── cosmos-db/
+│   ├── event-grid/
+│   ├── functions/
+│   ├── notification-hubs/
+│   └── service-bus/
+├── cloudflare/
+└── oraclecloud/
+    ├── autonomous-db/
+    ├── billing-alerts/
+    ├── compute/
+    ├── functions/
+    ├── networking/
+    └── object-storage/
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
-### Current Phase: Documentation
+1. Choose a provider that already has module code.
+2. Read that provider README before selecting modules.
+3. Deploy the provider's billing-alerts module first when one exists.
+4. Start from a module README and run `terraform init`, `terraform validate`, and `terraform plan` in a sandbox account or tenancy.
 
-We are currently in the **documentation phase**, creating comprehensive guides for always-free resources across cloud providers.
+## Review Summary
 
-**What's Available Now:**
-- Architecture documentation (ARCHITECTURE.md)
-- Implementation roadmap (TODO.md)
-- Provider-specific documentation in each directory
+The codebase is materially ahead of the original documentation. The main review outcome is not that modules are missing, but that the documentation had drifted and several always-free limits are documented rather than fully enforced in Terraform.
 
-**Coming Soon:**
-- Terraform modules implementing the documented patterns
-- Example configurations
-- CI/CD validation workflows
+Important caveats discovered during review:
 
-### How to Use This Repository
+- AWS Lambda requires either a local ZIP file or an S3 object for the deployment package; the module does not currently validate that one is supplied before apply.
+- AWS DynamoDB validates per-table capacity, but the always-free 25 RCU and 25 WCU allowances are account-wide totals, not per-table totals.
+- AWS CloudWatch can create more alarms and log resources than the always-free allowance if you configure large maps.
+- AWS SNS email subscriptions require manual confirmation before notifications are active.
+- Azure Cosmos DB free tier is limited to one free-tier account per subscription; the module enables free tier but cannot reserve that slot.
+- OCI compute and storage modules validate per-resource shape limits, but tenancy-wide always-free capacity still has to be managed across deployments.
 
-1. **Review the Architecture**: Start with [ARCHITECTURE.md](ARCHITECTURE.md) to understand the project structure and always-free resource focus
+## Documentation Map
 
-2. **Check the Roadmap**: See [TODO.md](TODO.md) for implementation status and priorities
+- [ARCHITECTURE.md](ARCHITECTURE.md): how the repository is organized and how the modules are intended to fit together.
+- [TODO.md](TODO.md): implemented work, open gaps, and review-driven backlog items.
+- Provider READMEs: implementation status and provider-specific caveats.
+- Module READMEs: resources created, key inputs and outputs, example usage, and current limitations.
 
-3. **Explore Provider Documentation**: Navigate to provider directories (e.g., `aws/`, `gcp/`) to learn about always-free resources
+## Usage Guidance
 
-4. **Understand Always-Free vs 12-Month Free**:
-   - ✅ **Always Free**: Perpetually free resources (focus of this project)
-   - ❌ **12-Month Free**: Temporary free tier (explicitly excluded)
+- Treat the modules as building blocks, not a full platform.
+- Stay inside the documented free-tier limits for each provider.
+- Validate plans in a low-risk account before applying in anything long-lived.
+- Re-check provider pricing pages periodically; always-free programs change over time.
 
-## 📋 Always-Free Resources Coverage
+## License
 
-### AWS (Always Free)
-- 📝 CloudWatch Billing Alerts
-- 📝 Lambda (1M requests/month, 400k GB-seconds)
-- 📝 DynamoDB (25GB storage, 25 WCU/RCU)
-- 📝 CloudWatch (10 metrics, 10 alarms)
-- 📝 SNS (1k emails/month)
-- 📝 SQS (1M requests/month)
-- 📝 Step Functions (4k transitions/month)
-
-**Excluded**: EC2, S3, RDS (12-month free tier only)
-
-### Azure (Always Free)
-- 📝 Functions (1M executions/month)
-- 📝 Cosmos DB (1k RU/s, 25GB)
-- 📝 Event Grid (100k operations/month)
-- 📝 Service Bus (750 hours/month)
-
-**Excluded**: VMs, Storage, SQL Database (12-month free tier only)
-
-### Oracle Cloud Infrastructure (Always Free)
-- 📝 Compute AMD (2× VM.Standard.E2.1.Micro)
-- 📝 Compute ARM (VM.Standard.A1.Flex: 4 OCPUs, 24 GB RAM)
-- 📝 Autonomous Database (2 DBs, 1 OCPU, 20 GB each)
-- 📝 Object Storage (20 GB standard, 10 GB archive)
-- 📝 Functions (2M invocations/month)
-- 📝 Networking (VCN, Load Balancer 10 Mbps, 10 TB/month egress)
-
-**Always Free**: OCI has one of the most generous always-free tiers (no 12-month limits)
-
-### Google Cloud Platform (Always Free)
-- 📝 Cloud Functions (2M invocations/month)
-- 📝 Cloud Run (2M requests/month)
-- 📝 Firestore (1GB storage, 50k reads, 20k writes daily)
-- 📝 Cloud Storage (5GB-months)
-- 📝 BigQuery (1TB queries/month, 10GB storage)
-
-**Excluded**: Compute Engine e2-micro (12-month free tier only)
-- 🔄 Compute Engine (e2-micro)
-- 🔄 Cloud Storage (5GB)
-- 🔄 Cloud Functions
-- 🔄 Firestore
-
-### DigitalOcean
-**Note**: DigitalOcean doesn't have traditional always-free resources. They offer:
-- $200 credit for new accounts (60 days)
-- Free monitoring and insights tools
-
-### Cloudflare (Always Free)
-- 📝 DNS (Unlimited queries)
-- 📝 CDN (Unlimited bandwidth)
-- 📝 Workers (100k requests/day)
-- 📝 Pages (Unlimited sites)
-- 📝 SSL Certificates (Universal SSL)
-
-Legend: 📝 Documentation Phase | 🔄 Implementation In Progress | ✅ Complete
-
-## 📖 Documentation
-
-- [ARCHITECTURE.md](ARCHITECTURE.md) - Detailed architecture and design decisions
-- [TODO.md](TODO.md) - Implementation roadmap and progress tracking
-- Provider-specific READMEs in each provider directory
-- Module-specific documentation in each module directory
-
-## 📚 Documentation Structure
-
-Each provider directory contains:
-- **README.md**: Overview of always-free resources for that provider
-- **Module directories**: Specific resource documentation (e.g., `lambda/`, `dynamodb/`)
-- **examples/**: Planned usage examples and patterns
-
-Each module documentation includes:
-- Always-free resource limits and constraints
-- Use cases and best practices
-- Cost warnings and monitoring strategies
-- Configuration guidelines (for future implementation)
-
-## ⚠️ Important: Always Free vs 12-Month Free Tier
-
-This project **exclusively focuses on always-free resources**. We explicitly exclude:
-
-### ❌ Excluded (12-Month Free Tier Only)
-- AWS EC2 t2.micro/t3.micro instances
-- AWS S3 storage (5GB)
-- AWS RDS databases
-- Azure Virtual Machines (B1S)
-- Azure Blob Storage
-- GCP Compute Engine e2-micro
-
-### ✅ Included (Always Free)
-- AWS Lambda, DynamoDB, CloudWatch, SNS
-- Azure Functions, Cosmos DB, Event Grid
-- GCP Cloud Functions, Cloud Run, Firestore
-- Oracle Cloud Compute (AMD + ARM), Autonomous DB, Object Storage, Functions
-- Cloudflare DNS, CDN, Workers, Pages
-
-### Why This Matters
-**12-month free tier** offerings expire after one year, potentially leading to unexpected charges. **Always-free** resources remain free indefinitely within specified usage limits, making them ideal for:
-- Long-term learning projects
-- Low-traffic production workloads
-- Permanent infrastructure components
-- Cost-conscious development
-
-### Security Considerations
-- Never commit credentials or sensitive data
-- Use environment variables or secure secret management
-- Follow least-privilege principle for IAM/RBAC
-- Enable encryption at rest and in transit
-- Regularly review security group rules
-
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Follow the existing module structure
-4. Include documentation and examples
-5. Test thoroughly in a sandbox environment
-6. Submit a pull request
-
-See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed contribution guidelines.
-
-## 📜 License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Cloud provider documentation and free-tier programs
-- Terraform community and best practices
-- Contributors and users of this project
-
-## 📞 Support
-
-- **Issues**: [GitHub Issues](https://github.com/lstasi/taf/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/lstasi/taf/discussions)
-- **Documentation**: See ARCHITECTURE.md and module READMEs
-
-## 🗺️ Roadmap
-
-See [TODO.md](TODO.md) for the complete implementation roadmap.
-
-**Current Phase**: Documentation and architecture design
-**Next Phase**: Terraform module implementation for AWS always-free resources
-
----
-
-**⚡ Getting Started**: 
-1. Read [ARCHITECTURE.md](ARCHITECTURE.md) to understand the always-free focus and project structure
-2. Check [TODO.md](TODO.md) for implementation status and priorities
-3. Explore provider directories (e.g., `aws/`) for always-free resource documentation
-4. Understand the critical distinction between always-free and 12-month free tier resources
+MIT. See [LICENSE](LICENSE).
