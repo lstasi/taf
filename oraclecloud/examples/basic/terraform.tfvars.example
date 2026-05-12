@@ -1,0 +1,31 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# terraform.tfvars.example
+#
+# Copy to terraform.tfvars and fill in your values.
+# NEVER commit terraform.tfvars — it is git-ignored.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# OCI Authentication
+tenancy_ocid     = "ocid1.tenancy.oc1..example"
+user_ocid        = "ocid1.user.oc1..example"
+fingerprint      = "xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"
+private_key_path = "~/.oci/oci_api_key.pem"
+region           = "eu-madrid-1"   # preferred; fall back to nearest available region
+
+# Compartment
+compartment_ocid = "ocid1.compartment.oc1..example"
+
+# Compute — A1 Flex (aarch64/ARM image required)
+availability_domain = "HoUe:EU-MADRID-1-AD-1"
+image_id            = "ocid1.image.oc1.eu-madrid-1..example"  # Ubuntu 22.04 aarch64 recommended
+ssh_public_key      = "ssh-ed25519 AAAA... user@host"
+instance_ocpus         = 1    # tenancy-wide max: 4 across ALL A1 instances
+instance_memory_in_gbs = 6    # tenancy-wide max: 24 GB across ALL A1 instances
+instance_display_name  = "openclaw-vm"
+
+# Billing alerts
+alert_email       = "admin@example.com"   # leave empty to skip email
+monthly_threshold = 10.0                  # USD
+
+# Network — restrict SSH to operator IP, never open to 0.0.0.0/0
+ssh_ingress_cidr = "1.2.3.4/32"   # replace with your IP
