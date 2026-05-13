@@ -25,6 +25,7 @@ taf/
 │   ├── README.md
 │   ├── billing-alerts/
 │   ├── cloudwatch/
+│   ├── cognito/
 │   ├── dynamodb/
 │   ├── lambda/
 │   ├── sns/
@@ -85,6 +86,7 @@ Implemented modules:
 - `sns`
 - `sqs`
 - `step-functions`
+- `cognito`
 
 Design notes:
 
