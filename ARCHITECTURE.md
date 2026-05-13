@@ -2,7 +2,7 @@
 
 ## Overview
 
-TAF is organized as a set of provider-specific Terraform modules that aim to stay within perpetual free allowances. The repository now has real module implementations for AWS, Azure, and Oracle Cloud Infrastructure, plus documentation-only coverage for Cloudflare.
+TAF is organized as a set of provider-specific Terraform modules that aim to stay within perpetual free allowances. The repository has real module implementations for AWS, Azure, Oracle Cloud Infrastructure, and Cloudflare.
 
 The design goal is simple: keep each module small, provider-native, and explicit about the free-tier assumptions it relies on.
 
@@ -39,7 +39,8 @@ taf/
 │   ├── notification-hubs/
 │   └── service-bus/
 ├── cloudflare/
-│   └── README.md
+│   ├── README.md
+│   └── pages/
 └── oraclecloud/
     ├── README.md
     ├── autonomous-db/
@@ -127,10 +128,16 @@ Design notes:
 
 ### Cloudflare
 
-Current state:
+Implemented modules:
 
-- Provider overview only.
-- No Terraform modules are implemented in this repository yet.
+- `pages`
+
+Design notes:
+
+- Cloudflare Pages free plan includes unlimited static requests and 500 builds/month.
+- The `pages` module creates a Pages project with optional GitHub source integration, build configuration, and custom domain.
+- Cloudflare has no billing-alert primitive equivalent on the free plan, so there is no `billing-alerts` module for this provider.
+- Custom domain DNS records are not managed by the module; they must be configured separately.
 
 ## Architectural Constraints
 
@@ -180,4 +187,4 @@ The next architectural additions should focus on depth before breadth:
 1. Add working examples for existing modules.
 2. Add CI and security checks.
 3. Tighten free-tier guardrails where validation is practical.
-4. Only then expand into Cloudflare modules and new providers such as GCP or DigitalOcean.
+4. Expand into new providers such as GCP or DigitalOcean.
