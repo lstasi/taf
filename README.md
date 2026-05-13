@@ -1,6 +1,6 @@
 # Terraform Always Free (TAF)
 
-Terraform Always Free (TAF) is a collection of Terraform modules for cloud resources that have a perpetual free allowance. The repository is no longer in a documentation-only phase: AWS, Azure, and Oracle Cloud Infrastructure modules are implemented and documented, while Cloudflare is documented but has no module code yet.
+Terraform Always Free (TAF) is a collection of Terraform modules for cloud resources that have a perpetual free allowance. The repository is no longer in a documentation-only phase: AWS, Azure, Oracle Cloud Infrastructure, and Cloudflare modules are implemented and documented.
 
 ## Current Status
 
@@ -9,15 +9,15 @@ Terraform Always Free (TAF) is a collection of Terraform modules for cloud resou
 | AWS | Implemented | 7 | Billing alerts, Lambda, DynamoDB, CloudWatch, SNS, SQS, Step Functions |
 | Azure | Implemented | 6 | Billing alerts, Functions, Cosmos DB, Event Grid, Service Bus, Notification Hubs |
 | Oracle Cloud Infrastructure | Implemented | 6 | Billing alerts, Networking, Compute, Autonomous DB, Object Storage, Functions |
-| Cloudflare | Documentation only | 0 | Provider overview only |
+| Cloudflare | Implemented | 1 | Pages (project, GitHub source integration, custom domain) |
 | GCP | Not started | 0 | No provider directory in the repo yet |
 | DigitalOcean | Not started | 0 | No provider directory in the repo yet |
 
-Implemented Terraform modules: 19
+Implemented Terraform modules: 20
 
 ## What Exists Today
 
-- Reusable Terraform modules under [aws/README.md](aws/README.md), [azure/README.md](azure/README.md), and [oraclecloud/README.md](oraclecloud/README.md).
+- Reusable Terraform modules under [aws/README.md](aws/README.md), [azure/README.md](azure/README.md), [oraclecloud/README.md](oraclecloud/README.md), and [cloudflare/README.md](cloudflare/README.md).
 - Module-level READMEs for every implemented module.
 - One working example for AWS billing alerts in [aws/billing-alerts/examples/basic/README.md](aws/billing-alerts/examples/basic/README.md).
 - Provider and module version constraints in each module's `versions.tf`.
@@ -28,7 +28,7 @@ Implemented Terraform modules: 19
 - CI validation and formatting checks.
 - Automated security scanning and cost guardrails.
 - Stronger validation for provider-wide aggregate free-tier quotas.
-- Any Terraform module code for Cloudflare, GCP, and DigitalOcean.
+- Any Terraform module code for GCP and DigitalOcean.
 
 ## Repository Layout
 
@@ -53,6 +53,7 @@ taf/
 │   ├── notification-hubs/
 │   └── service-bus/
 ├── cloudflare/
+│   └── pages/
 └── oraclecloud/
     ├── autonomous-db/
     ├── billing-alerts/

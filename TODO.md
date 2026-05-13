@@ -6,7 +6,7 @@
 - AWS provider modules are implemented.
 - Azure provider modules are implemented.
 - Oracle Cloud Infrastructure modules are implemented.
-- Cloudflare has provider-level documentation only.
+- Cloudflare Pages module is implemented.
 - GCP and DigitalOcean are not started in this repository.
 
 ## Implemented Modules
@@ -39,10 +39,12 @@
 - [x] object-storage
 - [x] functions
 
+### Cloudflare
+
+- [x] pages
+
 ### Documentation-Only Areas
 
-- [x] Cloudflare provider overview
-- [ ] Cloudflare Terraform modules
 - [ ] GCP provider overview and modules
 - [ ] DigitalOcean provider overview and modules
 
@@ -87,8 +89,7 @@
 2. CI validation and formatting.
 3. Security scanning.
 4. Guardrail improvements for the known free-tier gaps.
-5. Cloudflare module implementation.
-6. New provider expansion.
+5. New provider expansion (GCP, DigitalOcean).
 
 ## Notes
 

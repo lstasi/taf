@@ -1,27 +1,22 @@
-# Cloudflare Status
+# Cloudflare
 
-Cloudflare is documented in this repository, but no Terraform module code has been implemented for it yet.
+Cloudflare modules for always-free resources.
+
+## Implemented Modules
+
+| Module | Status | Notes |
+| --- | --- | --- |
+| `pages` | Implemented | Pages project with optional GitHub source integration, build config, and custom domain |
 
 ## Planned Scope
 
 - DNS
 - CDN configuration
 - Workers
-- Pages
 - Universal SSL guidance
-
-## Current Status
-
-- Provider overview only.
-- No `main.tf`, `variables.tf`, `outputs.tf`, or module directories exist under `cloudflare/` yet.
-
-## What Is Missing
-
-- Provider-specific module directories.
-- Usage examples.
-- Validation and test coverage.
 
 ## Notes
 
-- Cloudflare remains in scope because its free plan aligns well with the project goals.
-- Module work should come after examples, CI, and guardrail improvements for the already implemented providers.
+- Cloudflare Pages free plan includes unlimited static requests and 500 builds/month.
+- Custom domains require DNS to be managed through Cloudflare, or a CNAME pointing to the `<project>.pages.dev` subdomain.
+- GitHub source integration requires the Cloudflare Pages app to be authorised on the GitHub account before `terraform apply`.
